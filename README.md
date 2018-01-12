@@ -16,6 +16,8 @@ And then in your code:
 
 ```js
 var EventBus = require('eventbusjs');
+//or
+var EventBus = new EventBus();
 ```
 
 ## API
