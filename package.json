@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/krasimir/EventBus.git"
+    "url": "https://github.com/fercarvo/EventBus.git"
   },
   "keywords": [
     "event",
@@ -19,12 +19,12 @@
     "dispatch",
     "listen"
   ],
-  "author": "Krasimir Tsonev",
+  "author": "Krasimir Tsonev - (refactoring: Edgar Carvajal)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/krasimir/EventBus/issues"
+    "url": "https://github.com/fercarvo/EventBus/issues"
   },
-  "homepage": "https://github.com/krasimir/EventBus",
+  "homepage": "https://github.com/fercarvo/EventBus",
   "devDependencies": {
     "uglify-js": "2.6.2"
   }

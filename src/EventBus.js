@@ -1,10 +1,4 @@
-if (typeof exports === 'object' && typeof module === 'object')
-	module.exports = EventBus;
-
-if (typeof exports === 'object')
-	exports["EventBus"] = EventBus;
-
-class EventBus {
+class EventBusClass {
 	constructor() {
 		this.listeners = new Map() //For a better performance instead object {}
 	}
@@ -12,7 +6,7 @@ class EventBus {
 	addEventListener(type, callback, scope, ...args) {
 		var arr_listener = this.listeners.get(type); //[...Array]
 
-		if (|arr_listener)
+		if (!arr_listener)
 			return this.listeners.set(type, [{scope, callback, args}] );
 
 		arr_listener = [...arr_listener, {scope, callback, args}];
@@ -52,21 +46,35 @@ class EventBus {
 		if (!arr_listener)
 			return;
 
-		for (listener of arr_listener.slice() ){ //Don't know why the splice()
-			if (listener && listener.callback){
-				listener.callback.apply(listener.scope, [event, ...args, ...listener.args] )
-			}
-		}
+		arr_listener.forEach(listener => {
+			if (listener && listener.callback)
+				listener.callback.apply(listener.scope, [event, ...args, ...listener.args] );
+		})
 	}
 
 	get getEvents() {
 		var str = ``;
 		this.listeners.forEach((arr_listener, type)=> { //Map foeEach is (value, key)
 			arr_listener.forEach(listener => {
-				str += (listener.scope && listener.scope.className) ? listener.scope.className : `anonymous`;
+				if (listener.scope) {
+					if (listener.scope.className)
+						str += listener.scope.className;
+					else if (listener.scope.name)
+						str += listener.scope.name;
+					else
+						str += `anonymous`;
+				}
 				str += ` listen for ${type} \n`;
 			})
 		})
 		return str;
 	}
 }
+
+const EventBus = new EventBusClass()
+
+if (typeof exports === 'object' && typeof module === 'object')
+	module.exports = EventBus;
+
+if (typeof exports === 'object')
+	exports["EventBus"] = EventBus;

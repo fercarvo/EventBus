@@ -17,7 +17,6 @@ And then in your code:
 ```js
 var EventBus = require('eventbusjs');
 //or
-var EventBus = new EventBus();
 ```
 
 ## API
@@ -25,7 +24,7 @@ var EventBus = new EventBus();
 ### `addEventListener`
 
 ```js
-// @type - string
+// @type - any
 // @callback - function
 // @scope - the scope where the @callback is defined
 EventBus.addEventListener(type, callback, scope)
@@ -34,7 +33,7 @@ EventBus.addEventListener(type, callback, scope)
 ### `removeEventListener`
 
 ```js
-// @type - string
+// @type - any
 // @callback - function
 // @scope - the scope where the @callback is defined
 EventBus.removeEventListener(type, callback, scope)
@@ -43,7 +42,7 @@ EventBus.removeEventListener(type, callback, scope)
 ### `hasEventListener`
 
 ```js
-// @type - string
+// @type - any
 // @callback - function
 // @scope - the scope where the @callback is defined
 EventBus.hasEventListener(type, callback, scope)
@@ -52,7 +51,7 @@ EventBus.hasEventListener(type, callback, scope)
 ### `dispatch`
 
 ```js
-// @type - string
+// @type - any
 // @target - the caller
 // @args - pass as many arguments as you want
 EventBus.dispatch(type, target, args ...)
@@ -66,7 +65,7 @@ For debugging purpose, it prints out the added listeners.
 EventBus.getEvents()
 ```
 
-## Usage
+## Usage 1
 
 ```js
 function myFunction(event) {
@@ -74,6 +73,19 @@ function myFunction(event) {
 }
 EventBus.addEventListener("my_function_event", myFunction);
 EventBus.dispatch("my_function_event");
+```
+
+## Usage 2
+
+```js
+function myFunction(event) {
+  console.log("myFunction type=" + event.type);
+}
+EventBus.addEventListener(09877889, myFunction)
+EventBus.addEventListener({foo: 'foo', bar: 'bar'}, myFunction)
+
+EventBus.dispatch(09877889); //can use any data type, not just strings
+EventBus.dispatch({foo: 'foo', bar: 'bar'})
 ```
 
 ## Keeping the scope
